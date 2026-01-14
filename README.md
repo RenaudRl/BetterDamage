@@ -1,46 +1,69 @@
-<div align="center">  
+# BetterDamage
 
-![0](https://github.com/user-attachments/assets/b72c6d7c-d614-4b88-975d-44beb3997570)
+![Java Version](https://img.shields.io/badge/Java-21-orange)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Target](https://img.shields.io/badge/Target-Folia%20/%20Paper/BTC--CORE%20-blue)
 
-Welcome to BetterDamage!
+**BetterDamage** is a high-performance, strictly optimized fork of **toxicity188's BetterDamage**, engineered specifically for the **BTC Studio** infrastructure. This fork drops support for legacy platforms (Spigot, Bukkit, older NMS) to provide native, blazingly fast damage indicators and skins for **Paper** and **Folia**.
 
-[SpigotMC](https://www.spigotmc.org/resources/123850/) | [GitHub](https://github.com/toxicity188/BetterDamage) | [Wiki](https://github.com/toxicity188/BetterDamage/wiki)  
+> [!WARNING]
+> **PLATFORM COMPATIBILITY NOTICE**
+> This fork is **STRICTLY** for Paper 1.21.11+ and Folia 1.21.11+. Legacy compatibility layers have been removed to maximize performance. If you are not running modern Paper/Folia, this plugin **will not function**.
 
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/rePyFESDbk)
-[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/toxicity188/BetterDamage?style=for-the-badge&logo=github)](https://github.com/toxicity188/BetterDamage/issues)
-[![bStats Servers](https://img.shields.io/bstats/servers/24961?style=for-the-badge&logo=minecraft&label=bStats&color=0%2C150%2C136%2C0)](https://bstats.org/plugin/bukkit/BetterDamage/24961)
+---
 
-</div>
+## 🚀 Key Features in Detail
 
-![](https://i.imgur.com/BCoo007.gif)  
+### ⚡ Concurrency & Threading (Folia Native)
+- **Native Folia Support**: Deeply integrated `PaperScheduler` ensures that all damage indicators and cosmetic tasks are handled correctly using the region scheduler.
+- **Zero-Overhead Logic**: Slashed unnecessary logic checks for non-Folia/non-Paper platforms, resulting in instant feedback and faster rendering.
 
-### Provides simple damage skin for Minecraft Bukkit.
-This plugin implements damage skin.
-- Auto resource pack build
-- Custom skin per user
-- Multi trigger support
+### 🛠️ Core Optimisations & Debloating
+- **Java 21 Native**: Leveraging the latest JVM optimizations for maximum throughput and memory efficiency.
+- **Legacy Cleanup**: Removed support for legacy NMS versions (1.17 - 1.21.10) and Spigot-specific compatibility.
+- **BTC Core Integration**: Native detection of BTC Core platform to enable specialized optimizations.
 
-### Supported Plugins
-- BetterModel, ModelEngine - detect model's height  
-- MythicLib - support damage event  
+### � Advanced Visuals & Customizability
+- **Dynamic Damage Skins**: Highly configurable damage indicators that support images, text, and animations.
+- **Model Engine Support**: Seamless integration with ModelEngine to display damage on custom models.
+- **RPG Integration**: Built-in support for **MMOItems**, **MMOCore**, **Nexo**, and **CraftEngine** to display custom damage types and effects.
+- **Pack Management**: Efficient pack generation and management for custom assets.
 
-### Platform
-- Spigot, Paper and Folia or fork of them.
+---
 
-### Version
-- 1.20.5-1.21.11
+## ⚙️ Configuration
 
-### Build
-./gradlew build
+BetterDamage is optimized out-of-the-box, but stays configurable via `config.yml`.
 
-### API
-[![](https://jitpack.io/v/toxicity188/BetterDamage.svg)](https://jitpack.io/#toxicity188/BetterDamage)
-```kotlin
-repositories {
-    maven("https://jitpack.io")
-}
+### Key Settings
+| Key | Default | Description |
+|-----|---------|-------------|
+| `metrics` | `true` | Enables/Disables bStats metrics. |
+| `debug` | `false` | Enables debug mode for development. |
+| `default_skin` | `default` | The default damage skin to use. |
 
-dependencies { 
-    implementation("com.github.toxicity188:BetterDamage:Tag")
-}
+---
+
+## 🛠 Building & Deployment
+
+Requires **Java 21**.
+
+```bash
+# Clean and compile the project
+./gradlew clean build
 ```
+
+---
+
+## 🤝 Credits & Inspiration
+This project is built upon the innovation of the broader Minecraft development community:
+- **[BetterDamage](https://github.com/toxicity188/BetterDamage)** - The original project by toxicity188.
+
+---
+
+## 📜 License
+- **Custom BTC-CORE Patches**: Proprietary to **BTC Studio**.
+- **Upstream Source**: Original licenses apply to their respective components from BetterDamage (MIT).
+
+---
+**Fork maintained by BTCSTUDIO**

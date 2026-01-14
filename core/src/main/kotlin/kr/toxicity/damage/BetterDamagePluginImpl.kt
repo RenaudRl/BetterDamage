@@ -16,7 +16,6 @@ import kr.toxicity.damage.compatibility.modelengine.CurrentModelEngineAdapter
 import kr.toxicity.damage.compatibility.modelengine.LegacyModelEngineAdapter
 import kr.toxicity.damage.config.PluginConfig
 import kr.toxicity.damage.manager.*
-import kr.toxicity.damage.scheduler.BukkitScheduler
 import kr.toxicity.damage.scheduler.FoliaScheduler
 import kr.toxicity.damage.util.DATA_FOLDER
 import kr.toxicity.damage.util.handle
@@ -43,7 +42,7 @@ import java.util.jar.JarFile
 class BetterDamagePluginImpl : JavaPlugin(), BetterDamagePlugin {
 
     private val version = MinecraftVersion(Bukkit.getBukkitVersion().substringBefore('-'))
-    private val scheduler = if (BetterDamage.IS_PAPER) FoliaScheduler() else BukkitScheduler()
+    private val scheduler = FoliaScheduler()
 
     var skipInitialReload = false
     private val onReload = AtomicBoolean()
@@ -103,24 +102,7 @@ class BetterDamagePluginImpl : JavaPlugin(), BetterDamagePlugin {
     override fun onEnable() {
         audiences()
         val manager = Bukkit.getPluginManager()
-        nms = when (version) {
-            MinecraftVersion.V1_21_11 -> kr.toxicity.damage.nms.v1_21_R7.NMSImpl()
-            MinecraftVersion.V1_21_9, MinecraftVersion.V1_21_10 -> kr.toxicity.damage.nms.v1_21_R6.NMSImpl()
-            MinecraftVersion.V1_21_6, MinecraftVersion.V1_21_7, MinecraftVersion.V1_21_8 -> kr.toxicity.damage.nms.v1_21_R5.NMSImpl()
-            MinecraftVersion.V1_21_5 -> kr.toxicity.damage.nms.v1_21_R4.NMSImpl()
-            MinecraftVersion.V1_21_4 -> kr.toxicity.damage.nms.v1_21_R3.NMSImpl()
-            MinecraftVersion.V1_21_2, MinecraftVersion.V1_21_3 -> kr.toxicity.damage.nms.v1_21_R2.NMSImpl()
-            MinecraftVersion.V1_21, MinecraftVersion.V1_21_1 -> kr.toxicity.damage.nms.v1_21_R1.NMSImpl()
-            MinecraftVersion.V1_20_5, MinecraftVersion.V1_20_6 -> kr.toxicity.damage.nms.v1_20_R4.NMSImpl()
-            else -> {
-                warn(
-                    "Unsupported version: $version",
-                    "Plugin will be automatically disabled."
-                )
-                manager.disablePlugin(this)
-                return
-            }
-        }
+        nms = kr.toxicity.damage.nms.v1_21_R7.NMSImpl()
         manager.getPlugin("ModelEngine")?.let {
             runCatching {
                 @Suppress("DEPRECATION")
@@ -142,7 +124,7 @@ class BetterDamagePluginImpl : JavaPlugin(), BetterDamagePlugin {
         }
         info(
             "Plugin enabled.",
-            "Platform: ${if (BetterDamage.IS_PAPER) "Paper" else "Bukkit"}",
+            "Platform: Paper/Folia (BTC Core Compatible)",
             "Minecraft version: $version, NMS version: ${nms.version()}"
         )
         managers.forEach(DamageManager::start)

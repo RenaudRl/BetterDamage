@@ -96,11 +96,9 @@ fun Project.paper() = dependency("io.papermc.paper:paper-api:$minecraft-R0.1-SNA
 val api = project("api")
     .paper()
     .dependency(commandApiCore)
-val nms = project("nms").subprojects.map {
+val nms = project("nms:v1_21_R7").also {
     it.dependency(api)
-        .also { project ->
-            project.apply(plugin = "io.papermc.paperweight.userdev")
-        }
+    it.apply(plugin = "io.papermc.paperweight.userdev")
 }
 val modelEngine = project("modelengine").subprojects.map {
     it.dependency(api).paper()
@@ -126,9 +124,7 @@ dependencies {
     commandApis.forEach {
         implementation(it)
     }
-    nms.forEach {
-        implementation(project("nms:${it.name}", configuration = "reobf"))
-    }
+    implementation(nms)
 }
 
 val pluginVersion = version.toString()
