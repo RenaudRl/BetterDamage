@@ -20,6 +20,10 @@ public final class BetterDamage {
      * Check a running platform is Paper.
      */
     public static final boolean IS_PAPER;
+    /**
+     * Check a running platform is BTC Core.
+     */
+    public static final boolean IS_BTC_CORE;
 
     /**
      * Instance
@@ -34,7 +38,15 @@ public final class BetterDamage {
         } catch (Exception e) {
             paper = false;
         }
-        IS_PAPER = paper;
+        boolean btcCore;
+        try {
+            Class.forName("com.infernalsuite.asp.config.BTCCoreConfig");
+            btcCore = true;
+        } catch (Exception e) {
+            btcCore = false;
+        }
+        IS_BTC_CORE = btcCore;
+        IS_PAPER = paper || btcCore;
     }
 
     /**

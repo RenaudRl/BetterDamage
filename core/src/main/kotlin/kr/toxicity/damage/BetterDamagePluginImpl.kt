@@ -146,7 +146,7 @@ class BetterDamagePluginImpl : JavaPlugin(), BetterDamagePlugin {
         }
         info(
             "Plugin enabled.",
-            "Platform: ${if (BetterDamage.IS_PAPER) "Paper" else "Bukkit"}",
+            "Platform: ${if (BetterDamage.IS_BTC_CORE) "BTC Core" else if (BetterDamage.IS_PAPER) "Paper" else "Bukkit"}",
             "Minecraft version: $version, NMS version: ${nms.version()}"
         )
         managers.forEach(DamageManager::start)
