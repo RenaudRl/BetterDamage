@@ -40,7 +40,7 @@ public final class BetterDamage {
         }
         boolean btcCore;
         try {
-            Class.forName("com.infernalsuite.asp.config.BTCCoreConfig");
+            Class.forName("com.infernalsuite.asp.api.BTCCoreAPI");
             btcCore = true;
         } catch (Exception e) {
             btcCore = false;
