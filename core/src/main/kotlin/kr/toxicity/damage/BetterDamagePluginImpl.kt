@@ -12,7 +12,6 @@ import kr.toxicity.damage.api.scheduler.DamageScheduler
 import kr.toxicity.damage.api.util.HttpUtil
 import kr.toxicity.damage.api.util.MinecraftVersion
 import kr.toxicity.damage.compatibility.modelengine.CurrentModelEngineAdapter
-import kr.toxicity.damage.compatibility.modelengine.LegacyModelEngineAdapter
 import kr.toxicity.damage.config.PluginConfig
 import kr.toxicity.damage.manager.*
 import kr.toxicity.damage.scheduler.BukkitScheduler
@@ -108,14 +107,7 @@ class BetterDamagePluginImpl : JavaPlugin(), BetterDamagePlugin {
         nms = when (version) {
             MinecraftVersion.V26_2 -> kr.toxicity.damage.nms.v26_R2.NMSImpl()
             MinecraftVersion.V26_1, MinecraftVersion.V26_1_1, MinecraftVersion.V26_1_2 -> kr.toxicity.damage.nms.v26_R1.NMSImpl()
-            MinecraftVersion.V1_21_11 -> kr.toxicity.damage.nms.v1_21_R7.NMSImpl()
-            MinecraftVersion.V1_21_9, MinecraftVersion.V1_21_10 -> kr.toxicity.damage.nms.v1_21_R6.NMSImpl()
-            MinecraftVersion.V1_21_6, MinecraftVersion.V1_21_7, MinecraftVersion.V1_21_8 -> kr.toxicity.damage.nms.v1_21_R5.NMSImpl()
-            MinecraftVersion.V1_21_5 -> kr.toxicity.damage.nms.v1_21_R4.NMSImpl()
-            MinecraftVersion.V1_21_4 -> kr.toxicity.damage.nms.v1_21_R3.NMSImpl()
-            MinecraftVersion.V1_21_2, MinecraftVersion.V1_21_3 -> kr.toxicity.damage.nms.v1_21_R2.NMSImpl()
-            MinecraftVersion.V1_21, MinecraftVersion.V1_21_1 -> kr.toxicity.damage.nms.v1_21_R1.NMSImpl()
-            MinecraftVersion.V1_20_5, MinecraftVersion.V1_20_6 -> kr.toxicity.damage.nms.v1_20_R4.NMSImpl()
+            // Legacy NMS (v1_20/v1_21) dropped: this fork targets 26.2 only.
             else -> {
                 warn(
                     "Unsupported version: $version",
@@ -129,7 +121,8 @@ class BetterDamagePluginImpl : JavaPlugin(), BetterDamagePlugin {
             runCatching {
                 @Suppress("DEPRECATION")
                 val version = ModelEngineVersion(it.description.version)
-                modelAdapter = if (version >= ModelEngineVersion.version_4_0_0) CurrentModelEngineAdapter() else LegacyModelEngineAdapter()
+                // This fork targets 26.2 with modern ModelEngine (4.0.0+); legacy adapter dropped.
+                modelAdapter = CurrentModelEngineAdapter()
                 info("ModelEngine support enabled: $version")
             }.onFailure { e ->
                 e.handle("Failed to load ModelEngine support.")

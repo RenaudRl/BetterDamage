@@ -24,18 +24,11 @@ dependencies {
     implementation(project(":api")) { isTransitive = false }
     implementation(project(":core")) { isTransitive = false }
 
-    implementation(project(":nms:v1_20_R4", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R1", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R2", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R3", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R4", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R5", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R6", configuration = "reobf")) { isTransitive = false }
-    implementation(project(":nms:v1_21_R7", configuration = "reobf")) { isTransitive = false }
+    // Legacy NMS (v1_20/v1_21) dropped: this fork targets 26.2 only. Old modules also fail
+    // paperweight remapMinecraft for those old versions.
     implementation(project(":nms:v26_R1")) { isTransitive = false }
     implementation(project(":nms:v26_R2")) { isTransitive = false }
 
-    implementation(project(":modelengine:legacy")) { isTransitive = false }
     implementation(project(":modelengine:current")) { isTransitive = false }
 }
 
